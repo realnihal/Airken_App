@@ -37,8 +37,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ],
           ),
           Container(
-            alignment: const Alignment(0, 0.75),
+            alignment: const Alignment(0, 0.70),
             child: SmoothPageIndicator(
+              effect: WormEffect(
+                type: WormType.thin,
+                activeDotColor: Colors.grey,
+                dotColor: Colors.white,
+                spacing: 20,
+              ),
               controller: _controller,
               count: 3,
             ),
@@ -60,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           borderRadius: BorderRadius.circular(90),
                           color: Colors.white70),
                       child: Center(
-                        child: Text('Next tip',
+                        child: Text('Next',
                             style: GoogleFonts.poppins(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,

@@ -1,5 +1,9 @@
-import 'dart:convert';
+// ignore_for_file: non_constant_identifier_names, deprecated_member_use, avoid_print, prefer_const_constructors
 
+import 'dart:convert';
+import 'package:airken/Home%20Screens/outputpage.dart';
+import 'package:airken/Home%20Screens/waiting.dart';
+import 'package:http/http.dart' as http;
 import 'package:airken/Home%20Screens/infopage.dart';
 import 'package:airken/Home%20Screens/mainpage.dart';
 import 'package:airken/Home%20Screens/weatherpage.dart';
@@ -19,30 +23,45 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late File _image;
+  String quality = "";
+  bool _waiting = false;
   String _image_url = "";
   ImagePicker picker = ImagePicker();
   final storageRef = FirebaseStorage.instance.ref();
 
-  Future upload_file(image_path) async {
+  Future upload_file(imagePath) async {
     Random _random = Random.secure();
     var values = List<int>.generate(32, (i) => _random.nextInt(256));
     String name = base64Url.encode(values);
     final mountainsRef = storageRef.child("$name.jpg");
     try {
-      await mountainsRef.putFile(image_path);
-      print("Successfully uploaded");
+      await mountainsRef.putFile(imagePath);
       _image_url = await mountainsRef.getDownloadURL();
-      print(_image_url);
+      postData();
     } catch (e) {
-      print("File unable to upload");
+      print(e);
     }
   }
 
   Future get_image() async {
     final image = await picker.getImage(source: ImageSource.camera);
     setState(() {
+      _waiting = true;
       _image = File(image!.path);
       upload_file(_image);
+    });
+  }
+
+  void postData() async {
+    Map<String, String> requestBody = <String, String>{'image': _image_url};
+    var uri = Uri.parse('http://13.71.88.107/input');
+    var request = http.MultipartRequest('POST', uri)
+      ..fields.addAll(requestBody);
+    var response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    setState(() {
+      quality = jsonDecode(respStr)['image'];
+      print(quality);
     });
   }
 
@@ -55,9 +74,13 @@ class _HomePageState extends State<HomePage> {
         children: [
           PageView(
             controller: _pageController,
-            children: const [
+            children: [
               InfoPage(),
-              MainPage(),
+              (_waiting == false)
+                  ? MainPage()
+                  : (quality == '')
+                      ? WaitingScreen()
+                      : MainPage2(output: quality),
               WeatherPage(),
             ],
           ),
