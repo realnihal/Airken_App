@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, deprecated_member_use, avoid_print, prefer_const_constructors
 
 import 'dart:convert';
-import 'package:airken/Home%20Screens/mainpage2.dart';
+import 'package:airken/Home%20Screens/outputpage.dart';
 import 'package:airken/Home%20Screens/waiting.dart';
 import 'package:http/http.dart' as http;
 import 'package:airken/Home%20Screens/infopage.dart';
@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   Future get_image() async {
     final image = await picker.getImage(source: ImageSource.camera);
     setState(() {
+      _waiting = true;
       _image = File(image!.path);
       upload_file(_image);
     });
@@ -75,11 +76,11 @@ class _HomePageState extends State<HomePage> {
             controller: _pageController,
             children: [
               InfoPage(),
-              (_waiting == true)
+              (_waiting == false)
                   ? MainPage()
                   : (quality == '')
                       ? WaitingScreen()
-                      : MainPage2(),
+                      : MainPage2(output: quality),
               WeatherPage(),
             ],
           ),
@@ -135,9 +136,6 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     onTap: () {
                       _pageController.jumpToPage(2);
-                      setState(() {
-                        _waiting = true;
-                      });
                     },
                     child: Container(
                       height: 40,
