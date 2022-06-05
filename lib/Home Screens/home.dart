@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                   ? MainPage()
                   : (quality == '')
                       ? WaitingScreen()
-                      : MainPage2(output: quality, image_url: _image_url),
+                      : OutputPage(output: quality),
               WeatherPage(),
             ],
           ),

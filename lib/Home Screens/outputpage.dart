@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-class MainPage2 extends StatelessWidget {
+class OutputPage extends StatelessWidget {
   String output;
-  MainPage2({Key? key, required this.output}) : super(key: key);
+  OutputPage({Key? key, required this.output}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

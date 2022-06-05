@@ -8,11 +8,11 @@ class WaitingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FadeIn(
-      duration: Duration(milliseconds: 1000),
-      curve: Curves.easeIn,
-      child: Scaffold(
-        body: Stack(
+    return Scaffold(
+      body: FadeIn(
+        duration: Duration(milliseconds: 1000),
+        curve: Curves.easeIn,
+        child: Stack(
           children: [
             Container(
               alignment: Alignment(0, -0.75),
