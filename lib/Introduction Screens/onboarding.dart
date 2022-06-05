@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:airken/Introduction Screens/intropage1.dart';
 import 'package:airken/Introduction Screens/intropage2.dart';
 import 'package:airken/Introduction Screens/intropage3.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../Home Screens/home.dart';
 
@@ -83,8 +84,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage()));
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: HomePage()));
                       },
                       child: Container(
                         height: 60,

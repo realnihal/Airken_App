@@ -45,11 +45,31 @@ dependencies:
   dependencies:
   flutter_fadein: ^2.0.0
   url_launcher: ^6.1.2
+  page_transition: "^2.0.5"
+  flutter_native_splash: 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  flutter_launcher_icons:
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo-round.png"
+
+
+flutter_native_splash:
+
+  android: true
+  ios: false
+  web: false
+
+  color: "#292929"
+  image: "assets/brand.png"
+  fullscreen: true
+  # android12: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -72,6 +92,10 @@ flutter:
      - assets\moderate.json
      - assets\danger.json
      - assets\normal.json
+     - assets\brand.png
+     - assets\logo-round.png
+     - assets\logo.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
