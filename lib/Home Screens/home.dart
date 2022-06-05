@@ -37,7 +37,11 @@ class _HomePageState extends State<HomePage> {
     try {
       await mountainsRef.putFile(imagePath);
       _image_url = await mountainsRef.getDownloadURL();
-      postData();
+      try {
+        postData();
+      } catch (e) {
+        print(e);
+      }
     } catch (e) {
       print(e);
     }
@@ -80,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                   ? MainPage()
                   : (quality == '')
                       ? WaitingScreen()
-                      : MainPage2(output: quality),
+                      : MainPage2(output: quality, image_url: _image_url),
               WeatherPage(),
             ],
           ),

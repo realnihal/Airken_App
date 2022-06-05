@@ -1,8 +1,11 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:location/location.dart';
 import 'package:weather/weather.dart';
 import 'package:weather_icons/weather_icons.dart';
+import 'package:flutter_fadein/flutter_fadein.dart';
 
 WeatherFactory wf = new WeatherFactory("222aa2c28f9353df26b4102e55e38874");
 
@@ -78,23 +81,25 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-            child: (areaname == "")
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircularProgressIndicator(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Getting Location info...",
-                        style: GoogleFonts.poppins(),
-                      )
-                    ],
-                  )
-                : Column(
+      body: Center(
+          child: (areaname == "")
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Getting Location info...",
+                      style: GoogleFonts.poppins(),
+                    )
+                  ],
+                )
+              : FadeIn(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeIn,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -104,7 +109,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -114,7 +119,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -125,7 +130,7 @@ class _WeatherPageState extends State<WeatherPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -268,14 +273,14 @@ class _WeatherPageState extends State<WeatherPage> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 60,
                           ),
                         ],
                       )
                     ],
-                  )),
-      ),
+                  ),
+                )),
     );
   }
 }
