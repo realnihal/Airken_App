@@ -37,7 +37,11 @@ class _HomePageState extends State<HomePage> {
     try {
       await mountainsRef.putFile(imagePath);
       _image_url = await mountainsRef.getDownloadURL();
-      postData();
+      try {
+        postData();
+      } catch (e) {
+        print(e);
+      }
     } catch (e) {
       print(e);
     }
@@ -45,11 +49,13 @@ class _HomePageState extends State<HomePage> {
 
   Future get_image() async {
     final image = await picker.getImage(source: ImageSource.camera);
-    setState(() {
-      _waiting = true;
-      _image = File(image!.path);
-      upload_file(_image);
-    });
+    if (image != null) {
+      setState(() {
+        _waiting = true;
+        _image = File(image.path);
+        upload_file(_image);
+      });
+    }
   }
 
   void postData() async {
@@ -80,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                   ? MainPage()
                   : (quality == '')
                       ? WaitingScreen()
-                      : MainPage2(output: quality),
+                      : OutputPage(output: quality),
               WeatherPage(),
             ],
           ),
@@ -117,6 +123,7 @@ class _HomePageState extends State<HomePage> {
                   GestureDetector(
                     onTap: () {
                       get_image();
+                      _pageController.jumpToPage(1);
                     },
                     child: Container(
                       height: 50,
