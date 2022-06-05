@@ -48,7 +48,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future get_image() async {
-    final image = await picker.getImage(source: ImageSource.camera);
+    final image =
+        await picker.getImage(source: ImageSource.camera, imageQuality: 1);
     if (image != null) {
       setState(() {
         _waiting = true;
